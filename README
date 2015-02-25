@@ -1,0 +1,19 @@
+The .ml files in this folder contain the code for the home assignment for the MPRI 2-4 course.
+
+They have been tested using OCaml 4.02.1, on a computer running 64 bit Ubuntu 14.04 LTS with
+12GB RAM. I believe they should work on earlier versions but this may require defining the
+operator (|>) manually.
+
+Please note that the code written here was NOT written with performance in mind. As such, many
+functions are not tail-recursive, and I've used List.map throughout the code, instead of List.rev_map.
+This means that in certain cases, running a monadic computation may produce a stack overflow, although
+this isn't the case for the current code in my computer.
+
+I've implemented all the exercises mentioned in the project description, and all the tests seem to work
+just as expected. I'm generally very confident in the quality of the code, other than its performance,
+except for the code corresponding to memoized fixpoint combinators described in Task 6.3, which I don't
+trust a lot, although it works fine and makes sense.
+
+During the exercise, I found myself re-implementing a filter_map function, like the one found in
+Jane Street's Core, Batteries and Extlib. I think such a function would be very useful as part of
+the standard library.

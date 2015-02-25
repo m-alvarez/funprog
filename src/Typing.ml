@@ -41,7 +41,7 @@ let type_of_var (env: typenv) (v: var) : typ option =
 let rec typeof (env: typenv) (a: term) : typ mon =
   match a with
   | Const _    -> ret Int
-  | Var x      -> (match type_of_var env var with None -> fail | Some t -> ret t)
+  | Var x      -> (match type_of_var env x with None -> fail | Some t -> ret t)
   | Lam (x, t) ->
       any_typ >>= fun typ ->
       typeof ((x, typ) :: env) t >>= fun typ' ->
@@ -111,8 +111,8 @@ let var_x (n: int) : var = "x" ^ string_of_int n
 let any_term : int -> term mon = fixparam (fun any_term n ->
     choice
     [ ret (Const 42)
-    ; (any_int_below n >>= (fun v -> ret (Var (var_x n))))
-    ; (any_term (n + 1) >>= fun t -> ret (Lam (var_x (n + 1), t)))
+    ; (any_int_below n >>= (fun v -> ret (Var (var_x v))))
+    ; (any_term (n + 1) >>= fun t -> ret (Lam (var_x n, t)))
     ; (any_term n >>= fun t1 ->
        any_term n >>= fun t2 ->
        ret (App (t1, t2)))

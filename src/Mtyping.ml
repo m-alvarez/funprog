@@ -103,13 +103,14 @@ and print_typ_0 = function
       printf "("; print_typ t; printf ")"
 
 (** What are the types of [(\x.x) 42] ? *)
+(* This operation is now exhaustive! *)
 
 let ex1 = types_of_closed_term (App(Lam("x", Var "x"), Const 0))
 
 let _ = print_run print_typ 20 ex1
 
 (** What are the types of [(\x.\y.x) 0] ? *)
-
+(* This is more efficient than the version in Typing.ml! *)
 let ex2 = types_of_closed_term (App(Lam("x", Lam("y", Var "x")), Const 0))
 
 let _ = print_run print_typ 50 ex2
